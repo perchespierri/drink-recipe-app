@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Loading from '../components/Loading';
-import Link from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 class Main extends Component {
 
@@ -65,7 +65,7 @@ class Main extends Component {
         </button>
         {loading && <Loading />}
         {cocktails && cocktails.map(cocktail => (
-          <>
+
           <Link
             key={cocktail.idDrink}
             to={`/details/${cocktail.idDrink}`}
@@ -77,7 +77,7 @@ class Main extends Component {
               width="200"
             />
           </Link>
-          </>
+
         ))}
         {notFound && <p>No drinks found by the name {query}</p>}
       </div>

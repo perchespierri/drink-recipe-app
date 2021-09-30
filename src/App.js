@@ -1,19 +1,21 @@
 import React from 'react';
-import Main from '../src/pages/Main';
-import {BrowserRouter, Switch, Route} from 'react-router-dom';
+import Main from './pages/Main';
 import Details from './pages/Details';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+
 
 function App() {
   return (
-    <div className="App">
-      <BrowserRouter>
+      <Router>
         <Switch>
           <Route exact path="/" component={Main} />
           <Route exact path="/details/:id" component={Details} />
+          {/* OBS 1 */}
         </Switch>
-      </BrowserRouter>
-    </div>
+      </Router>
   );
 }
 
 export default App;
+
+// 1 - details/:id is the id of the route, which i defined as been called id
