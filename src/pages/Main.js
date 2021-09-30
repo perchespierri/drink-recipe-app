@@ -26,6 +26,9 @@ class Main extends Component {
       }))
       .catch(error => console.error(error));
     this.setState({loading: false, query:''});
+    if (apiData === null){
+      <p>No drinks found for `${query}`</p>
+    }
   };
 
   render() {
@@ -49,7 +52,7 @@ class Main extends Component {
         >
           Search
         </button>
-        {cocktails.map(cocktail => (
+        {cocktails && cocktails.map(cocktail => (
           <>
             <h1 key={cocktail.idDrink}>{cocktail.strDrink}</h1>
             <img
@@ -68,5 +71,5 @@ export default Main;
 
 // OBS:
 // 1 - label tag needs htmlFor equal to input's id
-// 2 - Always use https:// before endpoint
+// 2 - Always use https:// before endpoint when using fetch
 // 3 - API returns drinks: null if query doesn't exist
