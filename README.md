@@ -1,4 +1,4 @@
-## Drink Recipe App
+## Drink Recipes App 🍹
 
 A React, JS, CSS and API study
 
