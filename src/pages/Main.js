@@ -17,25 +17,24 @@ class Main extends Component {
   };
 
   fetchData = () => {
-    const { query } = this.state;
-    // OBS 2
-    const apiData = fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${query}`)
+    // OBS 4
+    this.setState({loading: true, cocktails: null}, () => {
+      const { query } = this.state;
+      // OBS 2
+      fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${query}`)
       .then((response) => response.json())
       .then((response) => this.setState({
         cocktails: response.drinks,
+        loading: false,
       }))
       .catch(error => console.error(error));
-    this.setState({loading: false, query:''});
-    if (apiData === null){
-      <p>No drinks found for `${query}`</p>
-    }
+    });
   };
 
   render() {
     const {query, loading, cocktails}= this.state;
     return (
       <div className='search-bar'>
-        {loading && <Loading />}
         <label htmlFor='query-input'> {/* OBS 1 */}
           <input
             type='text'
@@ -52,6 +51,7 @@ class Main extends Component {
         >
           Search
         </button>
+        {loading && <Loading />}
         {cocktails && cocktails.map(cocktail => (
           <>
             <h1 key={cocktail.idDrink}>{cocktail.strDrink}</h1>
@@ -73,3 +73,5 @@ export default Main;
 // 1 - label tag needs htmlFor equal to input's id
 // 2 - Always use https:// before endpoint when using fetch
 // 3 - API returns drinks: null if query doesn't exist
+// 4 - I called the API inside setState so the loading component
+// would stay on the screen and the previous query didn't
