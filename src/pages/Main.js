@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import Loading from '../components/Loading';
+import NotFound from '../components/NotFound';
+import NameSearch from '../components/NameSearch';
+// import IngredientSearch from '../components/IngredientSearch';
 import { Link } from 'react-router-dom';
 
 class Main extends Component {
@@ -17,7 +20,7 @@ class Main extends Component {
     });
   };
 
-  fetchData = () => {
+  fetchDataName = () => {
     // OBS 4
     this.setState({
       loading: true,
@@ -47,24 +50,22 @@ class Main extends Component {
     const { query, loading, cocktails, notFound }= this.state;
     return (
       <div className='search-bar'>
-        <label htmlFor='query-input'> {/* OBS 1 */}
-          <input
-            type='text'
-            id='query-input'
-            placeholder='Search drink by name'
-            name='query'
-            value={ query }
-            onChange={this.handleChange}
-          />
-        </label>
-        <button
-          type='button'
-          onClick={this.fetchData}
-        >
-          Search
-        </button>
+        <NameSearch
+          handleChangeProp={this.handleChange}
+          fetchDataProp={this.fetchDataName}
+          queryProp={query}
+        />
+
+        {/* <IngredientSearch
+          handleChangeProp={this.handleChange}
+          fetchDataProp={this.fetchData}
+          queryProp={query}
+        /> */}
+
         {loading && <Loading />}
         {cocktails && cocktails.map(cocktail => (
+          // The name and picture of the drink
+          // is a link to its details:
 
           <Link
             key={cocktail.idDrink}
@@ -77,9 +78,9 @@ class Main extends Component {
               width="200"
             />
           </Link>
-
         ))}
-        {notFound && <p>No drinks found by the name {query}</p>}
+
+        {notFound && <NotFound queryProp={query} />}
       </div>
     );
   }
